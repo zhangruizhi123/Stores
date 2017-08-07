@@ -1,0 +1,104 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capabFle" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/comm.css" />
+
+		<style>
+			.mui-btn {
+				display: block;
+				width: 120px;
+				margin: 10px auto;
+			}
+			
+			#info {
+				padding: 20px 10px;
+			}
+			
+			.bottoms {
+				border-bottom: 1px solid #999;
+				padding-top: 5px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">商品入库</h1>
+		</header>
+
+		<div class="mui-content">
+			<table>
+				<thead>
+					<tr>
+						<td>商品名称</td>
+						<td>商品数量</td>
+						<td>入库员工</td>
+						<td>入库时间</td>
+					</tr>
+				</thead>
+				<tbody class="tbody">
+
+				</tbody>
+			</table>
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			var user = 0;
+			document.addEventListener('plusready', function() {
+				//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。"
+				user = JSON.parse(plus.storage.getItem("user"));
+			});
+
+			//;
+			$(function() {
+				//加载入库信息
+				loadData();
+			});
+
+			function loadData() {
+				var $tr=$(".tbody").empty();
+				$.ajax({
+					url: m_config.path + "trans/list",
+					dataType: 'json',
+					type: 'post',
+					data: {
+						type: '0'
+					},
+					success: function(data) {
+						if(data.flag){
+							for(var i=0;i<data.data.length;i++){
+								var obj=data.data[i];
+								var tr="<tr>";
+								tr+="<td>"+obj.goods.name+"</td>";
+								tr+="<td>"+obj.number+"</td>";
+								if(obj.member){
+									tr+="<td>"+obj.member.name+"</td>";
+								}else{
+									tr+="<td></td>";
+								}
+								
+								tr+="<td>"+dateFormat(obj.createTime)+"</td>";
+								tr+="</tr>";
+								$tr.append(tr);
+							}
+						}
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

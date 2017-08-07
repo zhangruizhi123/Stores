@@ -1,0 +1,184 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capabFle" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/comm.css" />
+
+		<style>
+			.mui-btn {
+				display: block;
+				width: 120px;
+				margin: 10px auto;
+			}
+			
+			#info {
+				padding: 20px 10px;
+			}
+			
+			.bottoms {
+				border-bottom: 1px solid #999;
+				padding-top: 5px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">客户管理</h1>
+			<a class="mui-icon mui-icon-right-nav mui-pull-right add">+</a>
+		</header>
+
+		<div class="mui-content">
+			<!--显示用户信息 -->
+			<div class="list">
+				<table>
+					<thead>
+						<tr>
+							<td>姓名</td>
+							<td>住址</td>
+							<td>性别</td>
+							<td>电话</td>
+							<td>操作</td>
+						</tr>
+					</thead>
+					<tbody class="tbody">
+						
+					</tbody>
+				</table>
+
+			</div>
+			<div class="add-win" style="display: none;">
+				<ul class="row">
+					<form id="fm">
+
+						<li>
+							<label class="width-25">客户姓名:</label>
+							<div class="width-75">
+								<input type="text" name="name" placeholder="请输入客户姓名" />
+							</div>
+
+						</li>
+						<li>
+							<label class="width-25">性别:</label>
+							<div class="width-75">
+								<input type="radio" name="sex" checked/>男
+								<input type="radio" name="sex" />女
+							</div>
+						</li>
+						<li>
+							<label class="width-25">地址:</label>
+							<div class="width-75">
+								<input type="date" name="addr" placeholder="请输入地址" />
+							</div>
+						</li>
+						<li>
+							<label class="width-25">电话号码:</label>
+							<div class="width-75">
+								<input type="text" name="phone" placeholder="请输入登录密码" />
+							</div>
+
+						</li>
+
+					</form>
+					<li style="text-align: center;">
+						<input type="button" class="mui-btn mui-btn-link cancel" value="关闭" />
+						<input type="button" class="mui-btn mui-btn-success save" value="添加" />
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			function deletes(id) {
+				$.ajax({
+					url: m_config.path + "person/delete",
+					dataType: 'json',
+					data: {
+						id: id
+					},
+					type: 'post',
+					success: function(data) {
+						if(data.flag) {
+							load();
+						}
+					}
+				});
+			}
+			//;
+			$(function() {
+				$(".save").click(function() {
+
+					$.ajax({
+						url: m_config.path + "person/add",
+						dataType: 'json',
+						data: $("#fm").serialize(),
+						type: 'post',
+						success: function(data) {
+							if(data.flag) {
+								mui.alert("添加成功");
+								load();
+							} else {
+								mui.alert("添加失败");
+							}
+						}
+					});
+				});
+				$(".add").click(function() {
+					$(".add-win").show().siblings().hide();
+					$("#fm").load({
+						name: 'jjjj'
+					});
+				});
+				$(".cancel").click(function() {
+					$(".add-win").hide().siblings().show();
+				});
+
+			});
+			//查询员工的信息
+			$(function() {
+				load();
+			});
+			function load() {
+				$.ajax({
+					url: m_config.path + "person/list",
+					dataType: 'json',
+					type: 'post',
+					success: function(data) {
+						if(data.flag) {
+							//查询所有数据
+							var list = data.data;
+							var $li = $(".list .tbody").empty();
+							for(var i = 0; i < list.length; i++) {
+								var user = list[i];
+								var li = "<tr>"
+								li += "<td>" + user.name+"</td>";
+								li += "<td>" + user.addr+"</td>";
+								if(user.sex == "1") {
+									li += "<td>男</td>";
+								} else if(user.sex == "0") {
+									li += "<td>女</td>";
+								}
+								li += "<td>" + user.phone+"</td>";
+								li += "<td><a  onclick='deletes(\"" + user.id + "\")'>删除</a></td>"
+								li += "</tr>";
+								$li.append(li);
+							}
+						}
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

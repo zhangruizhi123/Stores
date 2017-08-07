@@ -1,0 +1,148 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capabFle" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/comm.css" />
+
+		<style>
+			.mui-btn {
+				display: block;
+				width: 120px;
+				margin: 10px auto;
+			}
+			
+			#info {
+				padding: 20px 10px;
+			}
+			
+			.bottoms {
+				border-bottom: 1px solid #999;
+				padding-top: 5px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">客户还款</h1>
+		</header>
+
+		<div class="mui-content">
+
+			<div class="add-win">
+				<ul class="row">
+					<form id="fm">
+						<li>
+							<label class="width-25" style="width:24%;">客户名称:</label>
+							<div class="width-75" style="width:55%;">
+								<select name="personId" id="personId">
+								</select>
+							</div>
+							<input type="button" class="search" style="margin-top:5px;" value="查询" />
+						</li>
+						
+					</form>
+				</ul>
+			</div>
+			
+			<div>
+				
+				<table>
+					<thead>
+						<tr>
+							<td>客户姓名</td>
+							<td>商品名称</td>
+							<td>欠款金额</td>
+							<td>日期</td>
+							<td>操作</td>
+						</tr>
+					</thead>
+					<tbody class="tbody">
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			var user = 0;
+			document.addEventListener('plusready', function() {
+				//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。"
+				user = JSON.parse(plus.storage.getItem("user"));
+			});
+
+			//;
+			$(function() {
+				loadPerson();
+				$(".search").click(function(){
+					var id=$("#personId").val();
+					if(id==-1){
+						mui.alert("请选择客户");
+					}else{
+						loadMoney(id);
+					}
+				});
+			});
+			
+			function loadMoney(id){
+				var $tbody=$(".tbody").empty();
+				$.ajax({
+					url:m_config.path+'money/list',
+					data:{status:'true',personId:id},
+					type:'post',
+					success:function(data){
+						if(data.flag){
+							for(var i=0;i<data.data.length;i++){
+								var obj=data.data[i];
+								var tr="<tr>";
+								tr+="<td>"+obj.person.name+"</td>";
+								tr+="<td>"+obj.goods.name+"</td>";
+								tr+="<td>"+obj.amount+"</td>";
+								tr+="<td>"+dateFormat(obj.createTime)+"</td>";
+								tr+="<td><a>还款</a></td>";
+								tr+="</tr>";
+								$tbody.append(tr);
+							}
+						}
+					}
+				});
+			}
+			//加载客户信息
+			function loadPerson() {
+				var $personId = $("#personId").empty();
+				$personId.append("<option value='-1'>请选择</ption>");
+				$.ajax({
+					url: m_config.path + "person/list",
+					type: 'post',
+					success: function(data) {
+						if(data.flag) {
+							var list = data.data;
+							for(var i = 0; i < list.length; i++) {
+								var obj = list[i];
+								var option = "<option value='" + obj.id + "'>";
+								option += obj.name;
+								option += "</option>";
+								$personId.append(option);
+							}
+						}
+
+					}
+
+				});
+			}
+			
+		</script>
+	</body>
+
+</html>

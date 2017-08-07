@@ -1,0 +1,170 @@
+{
+  "index.html": {
+    "resources": [
+      "js/jquery.min.js",
+      "css/login.css",
+      "img/back_log.jpg",
+      "js/update.js",
+      "css/mui.min.css",
+      "js/mui.js",
+      "js/mui.min.js",
+      "img/member.gif",
+      "img/person.gif",
+      "img/set.gif"
+    ],
+    "refer": [
+      "page/abc.html",
+      "page/person.html",
+      "page/member.html",
+      "page/goods.html",
+      "page/type.html",
+      "page/goodsin.html",
+      "page/goodsout.html",
+      "page/goodsmul.html",
+      "page/goodsone.html",
+      "page/goodsinfo.html",
+      "page/goodsback.html",
+      "page/goodsininfo.html",
+      "page/echarts.html",
+      "page/backmoney.html"
+    ]
+  },
+  "page/abc.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "login.html": {
+    "resources": [
+      "js/jquery.min.js",
+      "css/login.css",
+      "js/mui.min.js",
+      "img/back_log.jpg",
+      "css/mui.min.css",
+      "js/config.js"
+    ],
+    "refer": [
+      "page/abc.html",
+      "index.html"
+    ]
+  },
+  "page/person.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "css/comm.css",
+      "js/config.js"
+    ]
+  },
+  "page/member.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/config.js",
+      "css/comm.css",
+      "js/jquery.min.js"
+    ]
+  },
+  "page/goods.html": {
+    "resources": [
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/comm.css",
+      "js/config.js"
+    ]
+  },
+  "page/type.html": {
+    "resources": [
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/comm.css",
+      "js/config.js"
+    ]
+  },
+  "page/goodsin.html": {
+    "resources": [
+      "css/comm.css",
+      "js/config.js",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ]
+  },
+  "page/goodsmul.html": {
+    "resources": [
+      "css/comm.css",
+      "js/config.js",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ]
+  },
+  "page/goodsone.html": {
+    "resources": [
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/comm.css",
+      "js/config.js"
+    ]
+  },
+  "page/goodsout.html": {
+    "resources": [
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/comm.css",
+      "js/config.js"
+    ]
+  },
+  "page/goodsinfo.html": {
+    "resources": [
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/comm.css",
+      "js/config.js"
+    ]
+  },
+  "page/goodsback.html": {
+    "resources": [
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/comm.css",
+      "js/config.js"
+    ]
+  },
+  "page/goodsininfo.html": {
+    "resources": [
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/comm.css",
+      "js/config.js"
+    ]
+  },
+  "page/echarts.html": {
+    "resources": [
+      "js/echarts-all.js",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ]
+  },
+  "page/backmoney.html": {
+    "resources": [
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/comm.css",
+      "js/config.js"
+    ]
+  }
+}
